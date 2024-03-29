@@ -2,6 +2,7 @@ import {
   ClassSerializerInterceptor,
   INestApplication,
   ValidationPipe,
+  VersioningType,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -9,6 +10,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 export function setINestApplicationConfig(app: INestApplication): void {
   // Get reflector
   const reflector = app.get(Reflector);
+
+  // Enable versioning as URI
+  app.enableVersioning({
+    type: VersioningType.URI,
+  });
 
   // Set class-validator option
   app.useGlobalPipes(
