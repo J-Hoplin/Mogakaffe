@@ -1,6 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { setINestApplication } from './app.init';
+import {
+  setINestApplicationConfig,
+  setINestApplicationSwagger,
+} from './app.init';
 import { GlobalLogger } from './logger/logger.service';
 
 async function bootstrap() {
@@ -14,7 +17,8 @@ async function bootstrap() {
     origin: '*',
   });
 
-  setINestApplication(app);
+  setINestApplicationConfig(app);
+  setINestApplicationSwagger(app);
 
   await app.listen(3000);
 }

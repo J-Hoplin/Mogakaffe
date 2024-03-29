@@ -4,10 +4,9 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-export async function setINestApplication(
-  app: INestApplication,
-): Promise<void> {
+export function setINestApplicationConfig(app: INestApplication): void {
   // Get reflector
   const reflector = app.get(Reflector);
 
@@ -21,4 +20,22 @@ export async function setINestApplication(
 
   // Set class-transformer global serializer interceptor
   app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
+}
+
+export function setINestApplicationSwagger(app: INestApplication): void {
+  const config = new DocumentBuilder()
+    .setTitle('Mogakafe')
+    .setDescription('Mogakafe Backend')
+    .setContact(
+      'J-Hoplin',
+      'https://github.com/J-Hoplin',
+      'hoplin.dev@gmail.com',
+    )
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('docs', app, document, {
+    explorer: true,
+  });
 }
