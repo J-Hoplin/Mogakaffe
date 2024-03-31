@@ -6,6 +6,6 @@ export class AdminUserV1Service {
   constructor(private readonly repository: UserDBRepository) {}
 
   listAllUser() {
-    return this.repository.findAllUser();
+    return this.repository.findAllUser(1,2,{});
   }
 }
