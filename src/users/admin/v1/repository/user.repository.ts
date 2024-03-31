@@ -1,14 +1,11 @@
-import { DataSource, Repository } from 'typeorm';
-import { UserEntity } from '../../../../entity';
 import { Injectable } from '@nestjs/common';
+import { IUserRepository } from './user.irepository';
+import { Prisma } from '@prisma/client';
+import { UserDomain } from 'src/domain';
 
 @Injectable()
-export class UserDBRepository extends Repository<UserEntity> {
-  constructor(private dataSource: DataSource) {
-    super(UserEntity, dataSource.createEntityManager());
-  }
-
-  async findAllUser() {
-    return await this.find();
+export class UserDBRepository implements IUserRepository  {
+  findAllUser(skip: number, limit: number, filter: Prisma.UserWhereInput): UserDomain[] {
+    throw new Error('Method not implemented.');
   }
 }
